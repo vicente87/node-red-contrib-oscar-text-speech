@@ -1,0 +1,407 @@
+[
+    {
+        "id": "9a1796f41304fb16",
+        "type": "subflow",
+        "name": "OSCAR Text-Speech Services",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 40,
+                "y": 400,
+                "wires": [
+                    {
+                        "id": "fafbbbdd65a834c0"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1220,
+                "y": 280,
+                "wires": [
+                    {
+                        "id": "439af16f92fe7f07",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "URL",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "Nombre del Servicio",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "Usuario",
+                "type": "str",
+                "value": ""
+            },
+            {
+                "name": "Contraseña",
+                "type": "str",
+                "value": ""
+            }
+        ],
+        "meta": {
+            "module": "node-red-contrib-oscar-text-speech",
+            "version": "1.0.0",
+            "author": "Vicente Rodriguez Benitez <vicente.rdguezb@gmail.com>",
+            "desc": "Implementación de Text-Speech Services de OSCAR",
+            "keywords": "node-red,oscar, text-speech",
+            "license": "Apache-2.0"
+        },
+        "color": "#DDAA99",
+        "status": {
+            "x": 1100,
+            "y": 400,
+            "wires": [
+                {
+                    "id": "e095d2a13c0c8c0a",
+                    "port": 0
+                },
+                {
+                    "id": "842029e682675eb3",
+                    "port": 0
+                }
+            ]
+        }
+    },
+    {
+        "id": "af5d0ea0f39123cb",
+        "type": "change",
+        "z": "9a1796f41304fb16",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "headers",
+                "pt": "msg",
+                "to": "{\t   \"Authorization\": 'Basic ' & $base64encode(\t       payload.username & ':' & payload.password\t   ) \t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "f3d037f3380b2091"
+            ]
+        ]
+    },
+    {
+        "id": "f3d037f3380b2091",
+        "type": "http request",
+        "z": "9a1796f41304fb16",
+        "name": "text-to-speech-google service",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": true,
+        "headers": [],
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "69f6aa6cc40a21a5"
+            ]
+        ]
+    },
+    {
+        "id": "69f6aa6cc40a21a5",
+        "type": "string",
+        "z": "9a1796f41304fb16",
+        "name": "",
+        "methods": [
+            {
+                "name": "between",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "\"token\":\""
+                    },
+                    {
+                        "type": "str",
+                        "value": "\",\"input\""
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 610,
+        "y": 140,
+        "wires": [
+            [
+                "240294dbe7c1dc84"
+            ]
+        ]
+    },
+    {
+        "id": "240294dbe7c1dc84",
+        "type": "function",
+        "z": "9a1796f41304fb16",
+        "name": "Get Token-text",
+        "func": "msg.token_speech = msg.payload;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set(\"token_text\",\"\");\n",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 140,
+        "wires": [
+            [
+                "83fb0df5e202da55"
+            ]
+        ]
+    },
+    {
+        "id": "83fb0df5e202da55",
+        "type": "function",
+        "z": "9a1796f41304fb16",
+        "name": "Get text-speech",
+        "func": " \n\nmsg.payload = msg.text;\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 260,
+        "wires": [
+            [
+                "8e1871fa345d4e88"
+            ]
+        ]
+    },
+    {
+        "id": "8e1871fa345d4e88",
+        "type": "base64",
+        "z": "9a1796f41304fb16",
+        "name": "",
+        "action": "str",
+        "property": "payload",
+        "x": 460,
+        "y": 260,
+        "wires": [
+            [
+                "076e0442c3c58d28"
+            ]
+        ]
+    },
+    {
+        "id": "076e0442c3c58d28",
+        "type": "function",
+        "z": "9a1796f41304fb16",
+        "name": "funcion text-token",
+        "func": "\nvar token_text = msg.token_speech;\n\n\nmsg.headers = {\n    Authorization: \"Bearer \" + token_text\n}\n\nmsg.payload = msg.payload;\nmsg.url = msg.servidor_oscar + \"/run/\" + msg.speech;\n\nreturn msg;\n\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 280,
+        "wires": [
+            [
+                "dcfaef9433f5b0f2"
+            ]
+        ]
+    },
+    {
+        "id": "dcfaef9433f5b0f2",
+        "type": "http request",
+        "z": "9a1796f41304fb16",
+        "name": "http request text",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "query",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "bearer",
+        "senderr": true,
+        "headers": [],
+        "x": 820,
+        "y": 280,
+        "wires": [
+            [
+                "439af16f92fe7f07"
+            ]
+        ]
+    },
+    {
+        "id": "439af16f92fe7f07",
+        "type": "base64",
+        "z": "9a1796f41304fb16",
+        "name": "",
+        "action": "",
+        "property": "payload",
+        "x": 1000,
+        "y": 280,
+        "wires": [
+            [
+                "e095d2a13c0c8c0a"
+            ]
+        ]
+    },
+    {
+        "id": "fafbbbdd65a834c0",
+        "type": "change",
+        "z": "9a1796f41304fb16",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "servidor_oscar",
+                "pt": "msg",
+                "to": "URL",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "username",
+                "pt": "msg",
+                "to": "Usuario",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "pass",
+                "pt": "msg",
+                "to": "Contraseña",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "text",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "speech",
+                "pt": "msg",
+                "to": "Nombre del Servicio",
+                "tot": "env"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 160,
+        "y": 400,
+        "wires": [
+            [
+                "842029e682675eb3",
+                "a42dc0487f1b74f8"
+            ]
+        ]
+    },
+    {
+        "id": "842029e682675eb3",
+        "type": "change",
+        "z": "9a1796f41304fb16",
+        "name": "Start Service",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Procesando...",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e095d2a13c0c8c0a",
+        "type": "change",
+        "z": "9a1796f41304fb16",
+        "name": "End Service",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Terminado",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a42dc0487f1b74f8",
+        "type": "function",
+        "z": "9a1796f41304fb16",
+        "name": "Cargar Log",
+        "func": "msg.payload={\n\"username\":msg.username,\n\"password\":msg.pass\n\n}\nmsg.url= msg.servidor_oscar +\"/system/services/\"+ msg.speech ;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "af5d0ea0f39123cb"
+            ]
+        ]
+    },
+    {
+        "id": "882a3e749516df1c",
+        "type": "subflow:9a1796f41304fb16",
+        "z": "b206d149aa21db68",
+        "name": "",
+        "x": 1690,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    }
+]
