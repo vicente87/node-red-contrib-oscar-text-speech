@@ -3,7 +3,7 @@
         "id": "9a1796f41304fb16",
         "type": "subflow",
         "name": "OSCAR Text-Speech Services",
-        "info": "<main>\n    <section>\n        <article>\n            <h3>About Text to Speech </h3>\n            <p>Google Speech [1] is a simple multiplatform command line tool to read text using Google Translate TTS (Text To Speech) API . .</p>\n            <p>See also gTTS [2], for a similar but probably more advanced, and actively maintained project.</p>\n            <p>gTTS (Google Text-to-Speech), a Python library and CLI tool to interface with Google Translate's text-to-speech API. Write spoken mp3 data to a file, a file-like object (bytestring) for further audio manipulation, or stdout [3]. </p>\n            <ul>\n                <li>\n                    <a rel=\"stylesheet\" href=\"https://pypi.org/project/google-speech/\">[1]]</a>\n                    <a rel=\"stylesheet\" href=\"https://github.com/pndurette/gTTS/\">[2]</a>\n                    <a rel=\"stylesheet\" href=\"https://gtts.readthedocs.org/\">[3]</a>\n                </li>\n            </ul>\n        </article>\n        <article>\n            <h3>About Text Speech Service in OSCAR</h3>\n            <p>This node applies text to speech as an OSCAR service by using the Google Speech library, obtaining audio files from plain text.</p>\n            <p>For more information consult:</p>\n            <ul>\n                <li>\n                    <a rel=\"stylesheet\" href=\"https://oscar.grycap.net/blog/post-oscar-text-to-speech/\">[1] </a>\n                    <a rel=\"stylesheet\" href=\"https://github.com/grycap/oscar/tree/master/examples/text-to-speech-google\">[2]</a>\n                </li>\n            </ul>\n        </article>\n        <article>\n            <h3>Inputs</h3>\n            <p>The input variables will be the basic variables (OSCAR server url and credentials). In addition to the name that has been given to the text speech service on the OSCAR server. Inside the <code>msg.payload</code> entry must be the text to be converted. With all these elements, the service token is searched and then a request is made to the service ( POST /run/{serviceName})</p>\n            <ul>\n                <li>\n                    <a rel=\"stylesheet\" href=\"https://docs.oscar.grycap.net/api/\">Syns </a>\n                </li>\n            </ul>\n        </article>\n        <article>\n            <h3>Outputs</h3>\n            <p> The node returns via <code>msg.payload</code> the input text to audio (base64). Audio can be played by the audio out node found in dashboard elements.</p>\n        </article>\n    </section>\n</main>\n<footer>\n        GryCAP\n</footer>",
+        "info": "<main>\n    <section>\n        <article>\n            <h3>About Text to Speech </h3>\n            <p>Google Speech [1] is a simple multiplatform command line tool to read text using Google Translate TTS (Text To Speech) API .</p>\n            <p>See also gTTS [2], for a similar but probably more advanced, and actively maintained project.</p>\n            <p>gTTS (Google Text-to-Speech), a Python library and CLI tool to interface with Google Translate's text-to-speech API. Write spoken mp3 data to a file, a file-like object (bytestring) for further audio manipulation, or stdout [3]. </p>\n            <ul>\n                <li>\n                    <a rel=\"stylesheet\" href=\"https://pypi.org/project/google-speech/\">[1]]</a>\n                    <a rel=\"stylesheet\" href=\"https://github.com/pndurette/gTTS/\">[2]</a>\n                    <a rel=\"stylesheet\" href=\"https://gtts.readthedocs.org/\">[3]</a>\n                </li>\n            </ul>\n        </article>\n        <article>\n            <h3>About Text Speech Service in OSCAR</h3>\n            <p>This node applies text to speech as an OSCAR service by using the Google Speech library, obtaining audio files from plain text.</p>\n            <p>For more information consult:</p>\n            <ul>\n                <li>\n                    <a rel=\"stylesheet\" href=\"https://oscar.grycap.net/blog/post-oscar-text-to-speech/\">[1] </a>\n                    <a rel=\"stylesheet\" href=\"https://github.com/grycap/oscar/tree/master/examples/text-to-speech-google\">[2]</a>\n                </li>\n            </ul>\n        </article>\n        <article>\n            <h3>Inputs</h3>\n            <p>The input variables will be the basic variables (OSCAR server url and credentials). In addition to the name that has been given to the text speech service on the OSCAR server. Inside the <code>msg.payload</code> entry must be the text to be converted. With all these elements, the service token is searched and then a request is made to the service ( POST /run/{serviceName})</p>\n            <ul>\n                <li>\n                    <a rel=\"stylesheet\" href=\"https://docs.oscar.grycap.net/api/\">Syns </a>\n                </li>\n            </ul>\n        </article>\n        <article>\n            <h3>Outputs</h3>\n            <p> The node returns via <code>msg.payload</code> the input text to audio (base64). Audio can be played by the audio out node found in dashboard elements.</p>\n        </article>\n    </section>\n</main>\n<footer>\n        GRyCAP (Grupo de Grid y Computación de Altas Prestaciones) - UPV\n</footer>",
         "category": "",
         "in": [
             {
@@ -18,8 +18,8 @@
         ],
         "out": [
             {
-                "x": 1360,
-                "y": 280,
+                "x": 1500,
+                "y": 460,
                 "wires": [
                     {
                         "id": "9594b737369ed521",
@@ -69,11 +69,14 @@
             "keywords": "node-red,oscar, text-speech",
             "license": "Apache-2.0"
         },
+        "credentials": {
+            "Password": ""
+        },
         "color": "#3FADB5",
         "icon": "font-awesome/fa-bullhorn",
         "status": {
-            "x": 1100,
-            "y": 400,
+            "x": 1620,
+            "y": 260,
             "wires": [
                 {
                     "id": "e095d2a13c0c8c0a",
@@ -105,8 +108,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 160,
-        "y": 140,
+        "x": 500,
+        "y": 400,
         "wires": [
             [
                 "f3d037f3380b2091"
@@ -129,8 +132,8 @@
         "authType": "basic",
         "senderr": true,
         "headers": [],
-        "x": 390,
-        "y": 140,
+        "x": 720,
+        "y": 400,
         "wires": [
             [
                 "69f6aa6cc40a21a5"
@@ -161,8 +164,8 @@
         "propout": "payload",
         "object": "msg",
         "objectout": "msg",
-        "x": 610,
-        "y": 140,
+        "x": 350,
+        "y": 460,
         "wires": [
             [
                 "240294dbe7c1dc84"
@@ -174,33 +177,14 @@
         "type": "function",
         "z": "9a1796f41304fb16",
         "name": "Get Token-text",
-        "func": "msg.token_speech = msg.payload;\n\nreturn msg;\n",
+        "func": "msg.token_speech = msg.payload;\nmsg.payload = msg.text;\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nglobal.set(\"token_text\",\"\");\n",
         "finalize": "",
         "libs": [],
-        "x": 760,
-        "y": 140,
-        "wires": [
-            [
-                "83fb0df5e202da55"
-            ]
-        ]
-    },
-    {
-        "id": "83fb0df5e202da55",
-        "type": "function",
-        "z": "9a1796f41304fb16",
-        "name": "Get text-speech",
-        "func": " \n\nmsg.payload = msg.text;\n\nreturn msg;\n\n",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 300,
-        "y": 260,
+        "x": 490,
+        "y": 460,
         "wires": [
             [
                 "8e1871fa345d4e88"
@@ -214,8 +198,8 @@
         "name": "",
         "action": "str",
         "property": "payload",
-        "x": 460,
-        "y": 260,
+        "x": 660,
+        "y": 460,
         "wires": [
             [
                 "076e0442c3c58d28"
@@ -233,8 +217,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
-        "y": 280,
+        "x": 820,
+        "y": 460,
         "wires": [
             [
                 "dcfaef9433f5b0f2"
@@ -245,7 +229,7 @@
         "id": "dcfaef9433f5b0f2",
         "type": "http request",
         "z": "9a1796f41304fb16",
-        "name": "http request text",
+        "name": "Text Speech Run",
         "method": "POST",
         "ret": "txt",
         "paytoqs": "query",
@@ -257,8 +241,8 @@
         "authType": "bearer",
         "senderr": true,
         "headers": [],
-        "x": 820,
-        "y": 280,
+        "x": 1030,
+        "y": 460,
         "wires": [
             [
                 "439af16f92fe7f07"
@@ -272,11 +256,10 @@
         "name": "",
         "action": "",
         "property": "payload",
-        "x": 1000,
-        "y": 280,
+        "x": 1200,
+        "y": 460,
         "wires": [
             [
-                "e095d2a13c0c8c0a",
                 "9594b737369ed521"
             ]
         ]
@@ -356,8 +339,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 870,
-        "y": 400,
+        "x": 350,
+        "y": 260,
         "wires": [
             []
         ]
@@ -381,8 +364,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 890,
-        "y": 360,
+        "x": 1510,
+        "y": 380,
         "wires": [
             []
         ]
@@ -398,8 +381,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 120,
-        "y": 200,
+        "x": 330,
+        "y": 400,
         "wires": [
             [
                 "af5d0ea0f39123cb"
@@ -467,10 +450,12 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1190,
-        "y": 220,
+        "x": 1350,
+        "y": 460,
         "wires": [
-            []
+            [
+                "e095d2a13c0c8c0a"
+            ]
         ]
     }
 ]
